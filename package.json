@@ -51,7 +51,7 @@
     "link-list": "npm ls --depth=0 --link=true"
   },
   "dependencies": {
-    "@babel/runtime": "7.7.6",
+    "@babel/runtime": "7.16.3",
     "core-js": "^3.2.1",
     "cornerstone-core": "2.6.0",
     "wslink": "^0.1.8"
@@ -132,6 +132,6 @@
     ]
   },
   "resolutions": {
-    "**/@babel/runtime": "7.7.6"
+    "**/@babel/runtime": "7.16.3"
   }
 }
