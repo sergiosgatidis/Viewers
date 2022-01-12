@@ -10,7 +10,6 @@ import {
 } from '../src/storybook/components';
 
 import '../src/tailwind.css';
-import './custom.css';
 
 // https://github.com/mondaycom/monday-ui-react-core/tree/master/.storybook
 addParameters({
@@ -81,4 +80,10 @@ addParameters({
   },
 });
 
-export const decorators = [];
+export const decorators = [
+  Story => (
+    <div className="p-8 bg-primary-dark">
+      <Story />
+    </div>
+  ),
+];

@@ -9,7 +9,11 @@ export const argTypes = {
 
 <Meta title="Components/CinePlayer" component={CinePlayer} />
 
-export const cineTemplate = createComponentTemplate(CinePlayer);
+export const cineTemplate = args => (
+  <div className="w-40">
+    <CinePlayer {...args} />
+  </div>
+);
 
 <Heading title="CinePlayer" componentRelativePath="CinePlayer/CinePlayer.jsx" />
 

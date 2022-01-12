@@ -13,7 +13,7 @@ export const argTypes = {
 
 export const IconTemplate = (args) => (
   // Todo: Icon colors
-  <div className="w-8 h-8">
+  <div className="w-8 h-8 ">
     <Icon {...args} />
   </div>
 );
@@ -60,7 +60,7 @@ icons.
             .map((icon) => (
               <div className="m-4 flex flex-col justify-center items-center">
                 <div class="w-8 h-8">
-                  <Icon name={icon} />
+                  <Icon name={icon} className="text-white" />
                 </div>
                 <div className="text-gray-600">{icon}</div>
               </div>
