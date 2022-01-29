@@ -184,7 +184,7 @@ const definitions = [
       },
       {
         id: 'FlipH',
-        label: 'Flip H',
+        label: 'MIDAS', //dummy button for MIDAS demo
         icon: 'ellipse-h',
         //
         type: TOOLBAR_BUTTON_TYPES.COMMAND,

@@ -18,6 +18,31 @@ const refreshCornerstoneViewports = () => {
   });
 };
 
+function arrayToCsv(data) { //transform array to csv format for export
+  return data
+    .map(
+      row =>
+        row
+          .map(String) // convert every value to String
+          .map(v => v.replaceAll('"', '""')) // escape double colons
+          .map(v => `"${v}"`) // quote it
+          .join(',') // comma-separated
+    )
+    .join('\r\n'); // rows starting on new lines
+}
+
+function downloadBlob(content, filename, contentType) { //download file
+  // Create a blob
+  var blob = new Blob([content], { type: contentType });
+  var url = URL.createObjectURL(blob);
+
+  // Create a link to download it
+  var pom = document.createElement('a');
+  pom.href = url;
+  pom.setAttribute('download', filename);
+  pom.click();
+}
+
 const commandsModule = ({ servicesManager }) => {
   const actions = {
     rotateViewport: ({ viewports, rotation }) => {
@@ -29,13 +54,30 @@ const commandsModule = ({ servicesManager }) => {
         cornerstone.setViewport(enabledElement, viewport);
       }
     },
-    flipViewportHorizontal: ({ viewports }) => {
+    flipViewportHorizontal: ({ viewports }) => { //dummy function for demo of MIDAS
       const enabledElement = getEnabledElement(viewports.activeViewportIndex);
 
       if (enabledElement) {
-        let viewport = cornerstone.getViewport(enabledElement);
-        viewport.hflip = !viewport.hflip;
-        cornerstone.setViewport(enabledElement, viewport);
+        const ImInfo = enabledElement.innerText.split(/\r\n|\r|\n/); //get image info as string
+        let Imdim = ImInfo.filter(s => s.includes('x')); //image dimensions
+        const rows = parseInt(Imdim[0].split(' ')[0]);
+        //extract rows
+        const columns = parseInt(Imdim[0].split(' ')[2]);
+        //extract columns
+        //alert(columns);
+        let PixDat = cornerstone.getStoredPixels(
+          enabledElement,
+          0,
+          0,
+          rows,
+          columns
+        ); // ger Pixeldata
+
+        const newPixDat = []; //create 2D array
+        while (PixDat.length) newPixDat.push(PixDat.splice(0, rows));
+
+        let csv = arrayToCsv(newPixDat); //create csv and export
+        downloadBlob(csv, 'export.csv', 'text/csv;charset=utf-8;');
       }
     },
     flipViewportVertical: ({ viewports }) => {
